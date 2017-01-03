@@ -1,0 +1,6 @@
+sql:
+  user: 'root'
+  pass: '123'
+  serv: 'localhost'
+  base: 'databaseName'
+  port: 3306

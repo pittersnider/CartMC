@@ -1,0 +1,26 @@
+# Configure o comando para abrir as categorias de compras.
+# Não precisa colocar o barra (/), vai automatico.
+Comando: 'cart'
+
+# Configurações referentes ao inventário de categorias (aberto usando o comando configurado acima)
+GUI:
+  # Título do inventário de categorias
+  Titulo: '&2&lCompras no servdor'
+
+Categorias:
+  qualquerCoisaAqui:
+    # Configure dados do item
+    Item:
+      # Exemplo abaixo seria o ID "1:0"
+      ID: 1
+      Subtipo: 0
+      # Nome e lore abaixo
+      Nome: '&3Nome do item aqui'
+      Descricao:
+        - '&6Aqui pode por a descrição do item'
+    # Referencias do item dentro do inventário
+    Referencias:
+      # Qual o número do slot que ele deve aparecer?
+      SlotNumero: 16
+      # Quando clicar, abrira uma categoria baseada em qual arquivo dentro da pasta "categorias"?
+      AoClicar: 'testando.yml'

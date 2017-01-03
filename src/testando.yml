@@ -1,0 +1,29 @@
+##### CONFIGURAÇÃO DE UMA CATEGORIA EM PARTICULAR #####
+
+# Configurações sobre o inventário particular da categoria...
+GUI:
+  # Titulo do Inventario
+  Titulo: '&4Essa é a minha categoria...'
+
+# Configuração dos itens
+Itens:
+  qualquerCoisaAqui:
+    # Configure dados do item
+    Item:
+      # Exemplo abaixo seria o ID "1:0"
+      ID: 1
+      Subtipo: 0
+      # Nome e lore abaixo
+      Nome: '&3Nome do item aqui'
+      Descricao:
+        - '&6Aqui pode por a descrição do item'
+    # Referencias do item dentro do inventário
+    Referencias:
+      # Qual o número do slot que ele deve aparecer?
+      SlotNumero: 16
+      # Quando clicar, deverá executar qual comando?
+      # PS: não coloque o barra (/), pois vai automático.
+      # @player é substituido automaticamente pelo nome do jogador em questão.
+      AoClicar: 'darkit @player nomedokit'
+      # Qual o custo para comprar esse kit?
+      Preco: 3500.0
