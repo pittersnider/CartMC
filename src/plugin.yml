@@ -1,5 +1,6 @@
 name: 'CartMC'
-version: '1.0.0'
+version: '1.0.2'
 main: 'br.com.degiant.mcshop.Main'
 author: 'BRAVEM4N'
 website: 'https://www.degiant.com.br'
+depend: ["GUIHelper"]

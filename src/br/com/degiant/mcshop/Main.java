@@ -6,28 +6,50 @@ import java.lang.reflect.Field;
 import org.bukkit.Bukkit;
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandMap;
+import org.bukkit.command.CommandSender;
 import org.bukkit.configuration.file.FileConfiguration;
 import org.bukkit.configuration.file.YamlConfiguration;
+import org.bukkit.entity.Player;
 import org.bukkit.plugin.java.JavaPlugin;
+
+import com.github.jonathanxd.guihelper.GUIHelper;
+import com.github.jonathanxd.guihelper.gui.GUI;
+import com.github.jonathanxd.guihelper.manager.GUIManager;
 
 public class Main extends JavaPlugin {
 
+	protected static GUIManager			manager;
 	protected static FileConfiguration	categories;
 	protected static File				categoryFolder;
 	protected static String				commandName;
-	protected static SQL				data	= null;
+	protected static SQL				data				= null;
+	protected static GUI				categoriesInventory	= null;
+
+	public static void main(String[] args) {
+		System.out.println("Just to classpath");
+	}
 
 	@Override
 	public void onEnable() {
 		this.reloadConfig();
 		if (this.isEnabled()) {
+			manager = GUIHelper.init(this);
+			categoriesInventory = Categories.generate(categories);
+			manager.registerGui(categoriesInventory);
 			initCommand(new SimpleCommand(categories.getString("Comando", "cart"), this));
 		}
 	}
 
 	@Override
-	public void onDisable() {
-	};
+	public boolean onCommand(CommandSender sender, Command command, String label, String[] args) {
+		if (!(sender instanceof Player)) {
+			sender.sendMessage("§cComando não suportado no console.");
+			return false;
+		}
+
+		manager.openGui(categoriesInventory, ((Player) sender));
+		return false;
+	}
 
 	@Override
 	public void reloadConfig() {
