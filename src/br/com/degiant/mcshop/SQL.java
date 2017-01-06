@@ -38,7 +38,6 @@ public final class SQL {
       String url = String.format("jdbc:mysql://%s:%s/%s", this.getServerHost(),
           this.getServerPort(), this.getDatabaseName());
       Connection db = DriverManager.getConnection(url, this.getUser(), this.getPassword());
-      db.setAutoCommit(true);
       return db;
     } catch (SQLException e) {
       e.printStackTrace();
