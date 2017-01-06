@@ -61,8 +61,8 @@ public final class Commands implements CommandExecutor {
       } else {
         String target = args[1].toLowerCase();
         double balance = CashAPI.retrieve(target);
-        sender.sendMessage(
-            String.format("§3[CartMC] §bO jogador '§3%s§b' tem '§3%s§b' de cash.", target, balance));
+        sender.sendMessage(String.format("§3[CartMC] §bO jogador '§3%s§b' tem '§3%s§b' de cash.",
+            target, balance));
         return true;
       }
     }

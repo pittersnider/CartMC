@@ -46,7 +46,7 @@ public class Main extends JavaPlugin implements Listener {
       CashAPI.cleanup();
 
       this.getLogger()
-      .info("Registrando biblioteca GUIHelper desenvolvida por Jonathan Henrique...");
+          .info("Registrando biblioteca GUIHelper desenvolvida por Jonathan Henrique...");
       manager = GUIHelper.init(this);
 
       this.getLogger().info("Inicializando registros e tasks...");
@@ -63,7 +63,7 @@ public class Main extends JavaPlugin implements Listener {
 
       this.getServer().getPluginManager().registerEvents(this, this);
       this.getLogger()
-      .info("CartMC foi inicializado com êxito, desenvolvido por João Pedro Viana.");
+          .info("CartMC foi inicializado com êxito, desenvolvido por João Pedro Viana.");
       Bukkit.getConsoleSender().sendMessage(
           "§f[ §7=§f=§7=§f=§7=§f=§7=§f=§7=§f=§7=§f=§7=§f=§7=§f=§7=§f=§7=§f=§7=§f=§7=§f=§7=§f=§7=§f=§7=§f=§7=§f=§7=§f=§7=§f=§7=§f=§7=§f=§7=§f=§7=§f=§7=§f=§7=§f=§7=§f=§7=§f=§7=§f=§7=§f=§7=§f=§7=§f=§7=§f=§7=§f=§7=§f=§7=§f=§7=§f=§7=§f=§7=§f=§7=§f=§7=§f=§7=§f=§7=§f=§7=§f= §f]");
     }
@@ -85,7 +85,7 @@ public class Main extends JavaPlugin implements Listener {
           cachedKeys.remove(cachedKey);
           double gift = KeyAPI.use(key, p.getName());
           Bukkit.broadcastMessage("§3§l» §bO jogador §3§l" + p.getName()
-          + " §bativou um cash de §f$§3§l" + gift + "§b!");
+              + " §bativou um cash de §f$§3§l" + gift + "§b!");
         }
       } catch (IndexOutOfBoundsException iof) {
       }
