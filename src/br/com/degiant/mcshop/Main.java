@@ -45,6 +45,7 @@ public class Main extends JavaPlugin implements Listener {
       categoriesInventory = Categories.generate(categories);
       manager.registerGui(categoriesInventory);
       initCommand(new SimpleCommand(categories.getString("Comando", "cart"), this));
+      initCommand(new SimpleCommand("cash", "Ver quanto de cash você tem", this));
       initCommand(new SimpleCommand("cartmc", "Comando de gerenciamento de cash", new Commands()));
 
       Bukkit.getScheduler().runTaskTimer(this, () -> {
@@ -85,7 +86,12 @@ public class Main extends JavaPlugin implements Listener {
       return false;
     }
 
-    manager.openGui(categoriesInventory, ((Player) sender));
+    if (command.getName().equalsIgnoreCase("cash")) {
+      double cash = CashAPI.retrieve(sender.getName());
+      sender.sendMessage("§3Atualmente você tem §f$§b§l" + cash + "§3 de cash!");
+    } else {
+      manager.openGui(categoriesInventory, ((Player) sender));
+    }
     return false;
   }
 

@@ -17,7 +17,7 @@ public class Categories {
   @SuppressWarnings("deprecation")
   public static GUI generate(FileConfiguration data) {
     Builder builder =
-        GUI.selection(ChatColor.translateAlternateColorCodes('&', data.getString("GUI.Titulo")));
+        GUI.create(ChatColor.translateAlternateColorCodes('&', data.getString("GUI.Titulo")));
     for (String key : data.getConfigurationSection("Categorias").getKeys(false)) {
       String path = "Categorias." + key;
       try {
@@ -43,8 +43,10 @@ public class Categories {
         item.setData(mdata);
         builder = builder.addItem(
             data.getInt(String.format(path + ".%s", "Referencias.SlotNumero")), item, click -> {
-              Main.manager.openParentGui(click.viewSection,
-                  individual(String.format(path + ".%s", "Referencias.AoClicar")), click.player);
+              String fn = String.format(path + ".%s", "Referencias.AoClicar");
+              Main.manager.openParentGui(click.viewSection, individual(data.getString(fn)),
+                  click.player);
+              return;
             });
       } catch (NumberFormatException e) {
         System.out
@@ -61,7 +63,7 @@ public class Categories {
   public static GUI individual(String name) {
     FileConfiguration data = Main.catConfig.get(name);
     Builder builder =
-        GUI.selection(ChatColor.translateAlternateColorCodes('&', data.getString("GUI.Titulo")));
+        GUI.create(ChatColor.translateAlternateColorCodes('&', data.getString("GUI.Titulo")));
     if (data != null) {
       for (String key : data.getConfigurationSection("Itens").getKeys(false)) {
         String path = "Itens." + key;
@@ -90,19 +92,18 @@ public class Categories {
           builder = builder.addItem(
               data.getInt(String.format(path + ".%s", "Referencias.SlotNumero")), item, click -> {
                 double preco = data.getDouble(String.format(path + ".%s", "Referencias.Preco"));
-                if (CashAPI.has(click.player.getName(), preco)) {
+                if (!CashAPI.has(click.player.getName(), preco)) {
                   click.player.sendMessage("§cVocê não tem cash suficiente!");
                   return;
                 }
 
-                CashAPI.take(click.player.getName(), preco);
                 click.player.sendMessage("§3Você comprou o kit por §f$§b" + preco + "§3.");
                 Bukkit.dispatchCommand(Bukkit.getConsoleSender(),
-                    data.getString(String.format(path + ".%s", "Referencias.AoClicar")
-                        .replace("@player", click.player.getName()).replace("@world",
-                            click.player.getLocation().getWorld().getName())));
-                Main.manager.closeCurrentView(click.player);
+                    data.getString(String.format(path + ".%s", "Referencias.AoClicar"))
+                    .replace("@player", click.player.getName())
+                    .replace("@world", click.player.getLocation().getWorld().getName()));
 
+                CashAPI.take(click.player.getName(), preco);
               });
         } catch (NumberFormatException e) {
           System.out.println(

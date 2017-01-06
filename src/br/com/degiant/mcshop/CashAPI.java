@@ -8,7 +8,8 @@ import java.sql.SQLException;
 public class CashAPI {
 
   public static boolean has(String playerName, double expected) {
-    return retrieve(playerName) >= expected;
+    double now = retrieve(playerName);
+    return now >= expected;
   }
 
   public static void cleanup() {
