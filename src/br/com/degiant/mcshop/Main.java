@@ -36,12 +36,20 @@ public class Main extends JavaPlugin implements Listener {
 
   @Override
   public void onEnable() {
+    Bukkit.getConsoleSender().sendMessage(
+        "§f[ §7=§f=§7=§f=§7=§f=§7=§f=§7=§f=§7=§f=§7=§f=§7=§f=§7=§f=§7=§f=§7=§f=§7=§f=§7=§f=§7=§f=§7=§f=§7=§f=§7=§f=§7=§f=§7=§f=§7=§f=§7=§f=§7=§f=§7=§f=§7=§f=§7=§f=§7=§f=§7=§f=§7=§f=§7=§f=§7=§f=§7=§f=§7=§f=§7=§f=§7=§f=§7=§f=§7=§f=§7=§f=§7=§f=§7=§f=§7=§f=§7=§f=§7=§f= §f]");
     this.reloadConfig();
     if (this.isEnabled()) {
+      this.getLogger().info("Inicializando rotina de tabelas do banco de dados...");
       CashAPI.createTables();
       KeyAPI.createTables();
       CashAPI.cleanup();
+
+      this.getLogger()
+      .info("Registrando biblioteca GUIHelper desenvolvida por Jonathan Henrique...");
       manager = GUIHelper.init(this);
+
+      this.getLogger().info("Inicializando registros e tasks...");
       categoriesInventory = Categories.generate(categories);
       manager.registerGui(categoriesInventory);
       initCommand(new SimpleCommand(categories.getString("Comando", "cart"), this));
@@ -53,6 +61,10 @@ public class Main extends JavaPlugin implements Listener {
       }, 0L, 15 * 20L);
 
       this.getServer().getPluginManager().registerEvents(this, this);
+      this.getLogger()
+      .info("CartMC foi inicializado com êxito, desenvolvido por João Pedro Viana.");
+      Bukkit.getConsoleSender().sendMessage(
+          "§f[ §7=§f=§7=§f=§7=§f=§7=§f=§7=§f=§7=§f=§7=§f=§7=§f=§7=§f=§7=§f=§7=§f=§7=§f=§7=§f=§7=§f=§7=§f=§7=§f=§7=§f=§7=§f=§7=§f=§7=§f=§7=§f=§7=§f=§7=§f=§7=§f=§7=§f=§7=§f=§7=§f=§7=§f=§7=§f=§7=§f=§7=§f=§7=§f=§7=§f=§7=§f=§7=§f=§7=§f=§7=§f=§7=§f=§7=§f=§7=§f=§7=§f=§7=§f= §f]");
     }
   }
 
