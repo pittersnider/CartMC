@@ -62,7 +62,7 @@ public final class Commands implements CommandExecutor {
         String target = args[1].toLowerCase();
         double balance = CashAPI.retrieve(target);
         sender.sendMessage(
-            String.format("§3[CartMC] O jogador '%s' tem '%s' de cash.", target, balance));
+            String.format("§3[CartMC] §bO jogador '§3%s§b' tem '§3%s§b' de cash.", target, balance));
         return true;
       }
     }
@@ -125,21 +125,19 @@ public final class Commands implements CommandExecutor {
 
   public boolean sendHelpTopic(CommandSender sender) {
     sender.sendMessage("§3[CartMC] §bComandos do Sistema de Loja:");
-    sender.sendMessage("§3» §b/cartmc new <quantia de cash> §3= gerar nova key.");
+    sender.sendMessage("§3» §b/cartmc new <cash> §3= gerar nova key.");
     sender.sendMessage("§3» §b/cartmc del <key> §3= deletar key existente.");
     sender.sendMessage("§3» §b/cartmc keys §3= listar keys existentes.");
     sender.sendMessage("§3» §b/cartmc + <player> <quantia de cash> §3= doar cash à um player.");
-    sender
-    .sendMessage("§3» §b/cartmc - <player> <quantia de cash> §3= subtrair cash de um player.");
-    sender.sendMessage(
-        "§3» §b/cartmc = <player> <quantia de cash> §3= redefinir o cash de um player.");
+    sender.sendMessage("§3» §b/cartmc - <player> <cash> §3= subtrair cash de um player.");
+    sender.sendMessage("§3» §b/cartmc = <player> <cash> §3= redefinir o cash de um player.");
     sender.sendMessage("§3» §b/cartmc ? <player> §3= ver quanto de cash um player tem.");
     return false;
   }
 
   public String nextKey() {
     String uuid = UUID.randomUUID().toString();
-    return uuid.replaceAll(Pattern.quote("-"), "");
+    return uuid.replaceAll(Pattern.quote("-"), "").substring(0, 12);
   }
 
 }

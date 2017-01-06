@@ -76,7 +76,7 @@ public class CashAPI {
     try {
       PreparedStatement ps = db.prepareStatement(
           "INSERT INTO degiant_mcshop_cash (playerName, cash) VALUES (?, ?) ON DUPLICATE KEY UPDATE cash = (cash + ?);");
-      ps.setString(1, playerName);
+      ps.setString(1, playerName.toLowerCase());
       ps.setDouble(2, cashToBeAdded);
       ps.setDouble(3, cashToBeAdded);
       ps.executeUpdate();

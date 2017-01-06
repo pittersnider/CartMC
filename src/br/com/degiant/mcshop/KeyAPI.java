@@ -43,7 +43,7 @@ public class KeyAPI {
       ResultSet rs = ps.executeQuery();
 
       while (rs.next()) {
-        Main.cachedKeys.add(new Key(rs.getString("key")));
+        Main.cachedKeys.add(new Key(rs.getString("key").trim()));
         collection.add("§3§lKey: §b" + rs.getString("key") + " §f§l| §3§lTotal de Cash: §b"
             + rs.getDouble("cash"));
       }

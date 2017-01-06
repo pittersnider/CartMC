@@ -50,6 +50,8 @@ public class Main extends JavaPlugin implements Listener {
       Bukkit.getScheduler().runTaskTimer(this, () -> {
         KeyAPI.list(); // Refresh cachedKeys list
       }, 0L, 15 * 20L);
+
+      this.getServer().getPluginManager().registerEvents(this, this);
     }
   }
 
@@ -60,15 +62,18 @@ public class Main extends JavaPlugin implements Listener {
     String[] s = f.split(" ");
     String c = s[0];
 
-    if (c.length() == 2) {
-      if (c.equalsIgnoreCase("/usarkey") || c.equalsIgnoreCase("/usekey")) {
+    if (c.equalsIgnoreCase("/usarkey") || c.equalsIgnoreCase("/usekey")) {
+      try {
         String key = s[1];
-        if (cachedKeys.contains(new Key(key))) {
+        Key cachedKey = new Key(key.trim());
+        if (cachedKeys.contains(cachedKey)) {
           event.setCancelled(true);
+          cachedKeys.remove(cachedKey);
           double gift = KeyAPI.use(key, p.getName());
           Bukkit.broadcastMessage("§3§l» §bO jogador §3§l" + p.getName()
           + " §bativou um cash de §f$§3§l" + gift + "§b!");
         }
+      } catch (IndexOutOfBoundsException iof) {
       }
     }
   }
