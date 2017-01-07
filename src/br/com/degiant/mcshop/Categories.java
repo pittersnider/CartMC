@@ -50,7 +50,7 @@ public class Categories {
             });
       } catch (NumberFormatException e) {
         System.out
-            .println("[CartMC] Erro ao carregar item da categoria no path (NFE) '" + path + "'");
+        .println("[CartMC] Erro ao carregar item da categoria no path (NFE) '" + path + "'");
         continue;
       }
     }
@@ -100,8 +100,8 @@ public class Categories {
                 click.player.sendMessage("§3Você comprou o kit por §f$§b" + preco + "§3.");
                 Bukkit.dispatchCommand(Bukkit.getConsoleSender(),
                     data.getString(String.format(path + ".%s", "Referencias.AoClicar"))
-                        .replace("@player", click.player.getName())
-                        .replace("@world", click.player.getLocation().getWorld().getName()));
+                    .replace("@player", click.player.getName())
+                    .replace("@world", click.player.getLocation().getWorld().getName()));
 
                 CashAPI.take(click.player.getName(), preco);
               });

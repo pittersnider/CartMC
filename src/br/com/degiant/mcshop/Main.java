@@ -46,7 +46,7 @@ public class Main extends JavaPlugin implements Listener {
       this.getLogger().info("Inicializando rotina de tabelas do banco de dados...");
       CashAPI.createTables();
       KeyAPI.createTables();
-      CashAPI.cleanup();
+      //CashAPI.cleanup();
 
       this.getLogger().info("Inicializando registros e tasks...");
       initCommand(new SimpleCommand(categories.getString("Comando", "cart"), this));
@@ -81,8 +81,11 @@ public class Main extends JavaPlugin implements Listener {
           event.setCancelled(true);
           cachedKeys.remove(cachedKey);
           double gift = KeyAPI.use(key, p.getName());
-          Bukkit.broadcastMessage("§3§l» §bO jogador §3§l" + p.getName()
-          + " §bativou um cash de §f$§3§l" + gift + "§b!");
+          //Bukkit.broadcastMessage("§3§l» §bO jogador §3§l" + p.getName()
+          //+ " §bativou um cash de §f$§3§l" + gift + "§b!");
+
+          String cmd = "tm bc &bO jogador &3&l" + p.getName() + "&b avitou &f$&3" + gift + "&b de cash!";
+          Bukkit.dispatchCommand(Bukkit.getConsoleSender(), cmd);
         }
       } catch (IndexOutOfBoundsException iof) {
       }
