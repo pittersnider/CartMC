@@ -38,6 +38,9 @@ public class Main extends JavaPlugin implements Listener {
   public void onEnable() {
     Bukkit.getConsoleSender().sendMessage(
         "§f[ §7=§f=§7=§f=§7=§f=§7=§f=§7=§f=§7=§f=§7=§f=§7=§f=§7=§f=§7=§f=§7=§f=§7=§f=§7=§f=§7=§f=§7=§f=§7=§f=§7=§f=§7=§f=§7=§f=§7=§f=§7=§f=§7=§f=§7=§f=§7=§f=§7=§f=§7=§f=§7=§f=§7=§f=§7=§f=§7=§f=§7=§f=§7=§f=§7=§f=§7=§f=§7=§f=§7=§f=§7=§f=§7=§f=§7=§f=§7=§f=§7=§f=§7=§f= §f]");
+
+    this.getLogger().info("Registrando biblioteca GUIHelper desenvolvida por Jonathan Henrique...");
+    manager = GUIHelper.init(this);
     this.reloadConfig();
     if (this.isEnabled()) {
       this.getLogger().info("Inicializando rotina de tabelas do banco de dados...");
@@ -45,13 +48,7 @@ public class Main extends JavaPlugin implements Listener {
       KeyAPI.createTables();
       CashAPI.cleanup();
 
-      this.getLogger()
-          .info("Registrando biblioteca GUIHelper desenvolvida por Jonathan Henrique...");
-      manager = GUIHelper.init(this);
-
       this.getLogger().info("Inicializando registros e tasks...");
-      categoriesInventory = Categories.generate(categories);
-      manager.registerGui(categoriesInventory);
       initCommand(new SimpleCommand(categories.getString("Comando", "cart"), this));
       initCommand(new SimpleCommand("cash", "Ver quanto de cash você tem", this));
       initCommand(new SimpleCommand("rlcash", "Comando de reiniciação do PL de cash", this));
@@ -63,7 +60,7 @@ public class Main extends JavaPlugin implements Listener {
 
       this.getServer().getPluginManager().registerEvents(this, this);
       this.getLogger()
-          .info("CartMC foi inicializado com êxito, desenvolvido por João Pedro Viana.");
+      .info("CartMC foi inicializado com êxito, desenvolvido por João Pedro Viana.");
       Bukkit.getConsoleSender().sendMessage(
           "§f[ §7=§f=§7=§f=§7=§f=§7=§f=§7=§f=§7=§f=§7=§f=§7=§f=§7=§f=§7=§f=§7=§f=§7=§f=§7=§f=§7=§f=§7=§f=§7=§f=§7=§f=§7=§f=§7=§f=§7=§f=§7=§f=§7=§f=§7=§f=§7=§f=§7=§f=§7=§f=§7=§f=§7=§f=§7=§f=§7=§f=§7=§f=§7=§f=§7=§f=§7=§f=§7=§f=§7=§f=§7=§f=§7=§f=§7=§f=§7=§f=§7=§f=§7=§f= §f]");
     }
@@ -85,7 +82,7 @@ public class Main extends JavaPlugin implements Listener {
           cachedKeys.remove(cachedKey);
           double gift = KeyAPI.use(key, p.getName());
           Bukkit.broadcastMessage("§3§l» §bO jogador §3§l" + p.getName()
-              + " §bativou um cash de §f$§3§l" + gift + "§b!");
+          + " §bativou um cash de §f$§3§l" + gift + "§b!");
         }
       } catch (IndexOutOfBoundsException iof) {
       }
@@ -115,6 +112,13 @@ public class Main extends JavaPlugin implements Listener {
 
   @Override
   public void reloadConfig() {
+    if (categoriesInventory != null) {
+      manager.unregisterGui(categoriesInventory);
+      categoriesInventory = null;
+    }
+
+    catConfig.clear();
+
     File f = new File(this.getDataFolder(), "config.yml");
     File cats = new File(this.getDataFolder(), "categorias.yml");
     boolean desligar = false;
@@ -152,6 +156,9 @@ public class Main extends JavaPlugin implements Listener {
         }
       }
     }
+
+    categoriesInventory = Categories.generate(categories);
+    manager.registerGui(categoriesInventory);
 
     super.reloadConfig();
 
