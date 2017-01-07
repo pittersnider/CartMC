@@ -4,7 +4,8 @@ import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.SQLException;
 
-public final class SQL {
+public final class SQL
+{
 
   private String user;
   private String pass;
@@ -19,7 +20,8 @@ public final class SQL {
    * @param base Nome do banco de dados mysql
    * @param port Porta do servidor mysql
    */
-  protected SQL(String user, String pass, String serv, String base, int port) {
+  protected SQL(String user, String pass, String serv, String base, int port)
+  {
     super();
     this.user = user;
     this.pass = pass;
@@ -33,35 +35,43 @@ public final class SQL {
    *
    * @return Conexão mysql aberta
    */
-  public Connection initConnection() {
-    try {
-      String url = String.format("jdbc:mysql://%s:%s/%s", this.getServerHost(),
-          this.getServerPort(), this.getDatabaseName());
+  public Connection initConnection ()
+  {
+    try
+    {
+      String url = String.format("jdbc:mysql://%s:%s/%s", this.getServerHost(), this.getServerPort(), this.getDatabaseName());
       Connection db = DriverManager.getConnection(url, this.getUser(), this.getPassword());
       return db;
-    } catch (SQLException e) {
+    }
+    catch (SQLException e)
+    {
       e.printStackTrace();
       return null;
     }
   }
 
-  private String getUser() {
+  private String getUser ()
+  {
     return this.user;
   }
 
-  private String getPassword() {
+  private String getPassword ()
+  {
     return this.pass;
   }
 
-  private String getServerHost() {
+  private String getServerHost ()
+  {
     return this.serv;
   }
 
-  private String getDatabaseName() {
+  private String getDatabaseName ()
+  {
     return this.base;
   }
 
-  private int getServerPort() {
+  private int getServerPort ()
+  {
     return this.port;
   }
 

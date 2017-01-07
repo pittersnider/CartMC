@@ -7,46 +7,63 @@ import org.bukkit.command.Command;
 import org.bukkit.command.CommandExecutor;
 import org.bukkit.command.CommandSender;
 
-public final class Commands implements CommandExecutor {
+public final class Commands implements CommandExecutor
+{
 
   @Override
-  public boolean onCommand(CommandSender sender, Command command, String label, String[] args) {
+  public boolean onCommand ( CommandSender sender, Command command, String label, String[] args )
+  {
 
-    if (!(sender.hasPermission("cartmc.admin"))) {
+    if (!(sender.hasPermission("cartmc.admin")))
+    {
       sender.sendMessage("§cVocê não tem permissão para usar este comando.");
       return false;
     }
 
-    if ((args.length <= 0) || (args.length >= 4)) {
+    if ((args.length <= 0) || (args.length >= 4))
+    {
       return this.sendHelpTopic(sender);
     }
 
     String section = args[0].toLowerCase().trim();
 
-    if (section.equalsIgnoreCase("keys")) {
-      for (String row : KeyAPI.list()) {
+    if (section.equalsIgnoreCase("keys"))
+    {
+      for (String row : KeyAPI.list())
+      {
         sender.sendMessage(row);
       }
     }
 
-    if (section.equalsIgnoreCase("del")) {
-      if (args.length != 2) {
+    if (section.equalsIgnoreCase("del"))
+    {
+      if (args.length != 2)
+      {
         return this.sendHelpTopic(sender);
-      } else {
+      }
+      else
+      {
         String key = args[1];
         KeyAPI.del(key);
         return this.performed(sender);
       }
     }
 
-    if (section.equalsIgnoreCase("new")) {
-      if (args.length != 2) {
+    if (section.equalsIgnoreCase("new"))
+    {
+      if (args.length != 2)
+      {
         return this.sendHelpTopic(sender);
-      } else {
+      }
+      else
+      {
         String cash = args[1];
-        if (!(this.isInt(cash))) {
+        if (!(this.isInt(cash)))
+        {
           return this.numberPlease(sender);
-        } else {
+        }
+        else
+        {
           String key = this.nextKey();
           KeyAPI.save(key, sender.getName(), Integer.parseInt(cash));
           sender.sendMessage(String.format("§3[CartMC] §bKey gerada: '%s'", key));
@@ -55,33 +72,47 @@ public final class Commands implements CommandExecutor {
       }
     }
 
-    if (section.equalsIgnoreCase("?")) {
-      if (args.length != 2) {
+    if (section.equalsIgnoreCase("?"))
+    {
+      if (args.length != 2)
+      {
         return this.sendHelpTopic(sender);
-      } else {
+      }
+      else
+      {
         String target = args[1].toLowerCase();
         double balance = CashAPI.retrieve(target);
-        sender.sendMessage(String.format("§3[CartMC] §bO jogador '§3%s§b' tem '§3%s§b' de cash.",
-            target, balance));
+        sender.sendMessage(String.format("§3[CartMC] §bO jogador '§3%s§b' tem '§3%s§b' de cash.", target, balance));
         return true;
       }
     }
 
-    if (section.equalsIgnoreCase("+") || section.equalsIgnoreCase("-")
-        || section.equalsIgnoreCase("=")) {
-      if (args.length != 3) {
+    if (section.equalsIgnoreCase("+") || section.equalsIgnoreCase("-") || section.equalsIgnoreCase("="))
+    {
+      if (args.length != 3)
+      {
         return this.sendHelpTopic(sender);
-      } else {
+      }
+      else
+      {
         String target = args[1].toLowerCase();
         String cash = args[2];
-        if (!this.isDouble(cash)) {
+        if (!this.isDouble(cash))
+        {
           return this.numberPlease(sender);
-        } else {
-          if (section.equalsIgnoreCase("+")) {
+        }
+        else
+        {
+          if (section.equalsIgnoreCase("+"))
+          {
             CashAPI.add(target, Double.parseDouble(cash));
-          } else if (section.equalsIgnoreCase("-")) {
+          }
+          else if (section.equalsIgnoreCase("-"))
+          {
             CashAPI.take(target, Double.parseDouble(cash));
-          } else {
+          }
+          else
+          {
             CashAPI.def(target, Double.parseDouble(cash));
           }
 
@@ -95,35 +126,46 @@ public final class Commands implements CommandExecutor {
     return false;
   }
 
-  public boolean performed(CommandSender sender) {
+  public boolean performed ( CommandSender sender )
+  {
     sender.sendMessage("§3[CartMC] §bOrdem processada com sucesso!");
     return false;
   }
 
-  public boolean numberPlease(CommandSender sender) {
+  public boolean numberPlease ( CommandSender sender )
+  {
     sender.sendMessage("§cPor favor, use um número (inteiro ou decimal) válido.");
     return false;
   }
 
-  public boolean isDouble(String value) {
-    try {
+  public boolean isDouble ( String value )
+  {
+    try
+    {
       double d = Double.parseDouble(value);
       return (d >= 0);
-    } catch (NumberFormatException e) {
+    }
+    catch (NumberFormatException e)
+    {
       return false;
     }
   }
 
-  public boolean isInt(String value) {
-    try {
+  public boolean isInt ( String value )
+  {
+    try
+    {
       double i = Integer.parseInt(value);
       return (i >= 0);
-    } catch (NumberFormatException e) {
+    }
+    catch (NumberFormatException e)
+    {
       return false;
     }
   }
 
-  public boolean sendHelpTopic(CommandSender sender) {
+  public boolean sendHelpTopic ( CommandSender sender )
+  {
     sender.sendMessage("§3[CartMC] §bComandos do Sistema de Loja:");
     sender.sendMessage("§3» §b/cartmc new <cash> §3= gerar nova key.");
     sender.sendMessage("§3» §b/cartmc del <key> §3= deletar key existente.");
@@ -135,7 +177,8 @@ public final class Commands implements CommandExecutor {
     return false;
   }
 
-  public String nextKey() {
+  public String nextKey ()
+  {
     String uuid = UUID.randomUUID().toString();
     return uuid.replaceAll(Pattern.quote("-"), "").substring(0, 12);
   }

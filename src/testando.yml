@@ -21,9 +21,12 @@ Itens:
     Referencias:
       # Qual o número do slot que ele deve aparecer?
       SlotNumero: 16
-      # Quando clicar, deverá executar qual comando?
+      # Quando clicar, deverá executar quais comandos?
       # PS: não coloque o barra (/), pois vai automático.
       # @player é substituido automaticamente pelo nome do jogador em questão.
-      AoClicar: 'darkit @player nomedokit'
+      AoClicar:
+        - 'comando1'
+        - 'outro comando'
+        - 'darmoney @player 2000'
       # Qual o custo para comprar esse kit?
       Preco: 3500.0
